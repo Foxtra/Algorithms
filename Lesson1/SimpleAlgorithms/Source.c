@@ -30,18 +30,28 @@ b. *без использования третьей переменной.
 */
 
 #include <stdio.h>
+#include <locale.h>
 
-void solution1();
+void bmi();
+void maxOfFourNombers();
+void changeValues();
 void menu();
 
 int main() {
 	int sel = 0;
+	char * locale = setlocale(LC_ALL, "");
 	do {
 		menu();
 		scanf("%d", &sel);
 		switch (sel) {
 			case 1:
-				solution1();
+				bmi();
+				break;
+			case 2:
+				maxOfFourNombers();
+				break;
+			case 3:
+				changeValues();
 				break;
 			default:
 				printf("Wrong selected\n");
@@ -50,13 +60,64 @@ int main() {
 	return 0;
 }
 
-void solution1() {
-	printf("Solution1\n");
-	//Solution
+void bmi() {
+	float mass = 0;
+	float height = 0;
+	float index = 0;
+	printf("Для рассчёта индекса массы тела введите\n");
+	printf("Вес в кг: ");
+	scanf("%f", &mass);
+	printf("Рост в cм: ");
+	scanf("%f", &height);
+	height /= 100;
+	index = mass / (height*height);
+	printf("Индекс массы тела = %.2f \n",index);
+}
+
+void maxOfFourNombers() {
+	int a = 0;
+	int b = 0;
+	int c = 0;
+	int d = 0;
+	int max = 0;
+	printf("Для поиска максимального введите 4 целых числа через пробел\n");
+	scanf("%d %d %d %d", &a, &b, &c, &d );
+	
+	if (a > b && a > c && a > d)
+		max = a;
+	else  if (b > a && b > c && b > d)
+		max = b;
+	else  if (c > a && c > b && c > d)
+		max = c;
+	else  if (d > a && d > b && d > c)
+		max = d;
+	else
+		max = -1;
+	if (max == -1)
+		printf("Не удалось определить наибольшее из чисел. \n");
+	else
+		printf("Наибольшее число: %d \n", max);
+}
+
+void changeValues() {
+	int a = 0;
+	int b = 0;
+	int c = 0;
+	printf("Для обмена переменных позначению введите\n");
+	printf("а = ");
+	scanf("%d", &a);
+	printf("b = ");
+	scanf("%d", &b);
+	c = a;
+	a = b;
+	b = c;
+	printf("a = %d \n", a);
+	printf("b = %d \n", b);
 }
 
 void menu() {
-	printf("1 - task1\n");
-	printf("2 - task2\n");
+	printf("\n1 - Рассчёт индекса массы\n");
+	printf("2 - Поиск максимального из четырёх чисел\n");
+	printf("3 - Обмен значениями\n");
 	printf("0 - exit\n");
 }
