@@ -31,10 +31,12 @@ b. *без использования третьей переменной.
 
 #include <stdio.h>
 #include <locale.h>
+#include <math.h>
 
 void bmi();
 void maxOfFourNombers();
 void changeValues();
+void findSquareEquationRoots();
 void menu();
 
 int main() {
@@ -53,8 +55,12 @@ int main() {
 			case 3:
 				changeValues();
 				break;
+			case 4:
+				findSquareEquationRoots();
+				break;
 			default:
-				printf("Wrong selected\n");
+				if(sel != 0)
+					printf("Неверный ввод. Повторите\n");
 		}
 	} while (sel != 0);
 	return 0;
@@ -115,9 +121,47 @@ void changeValues() {
 	printf("b = %d \n", b);
 }
 
+void findSquareEquationRoots() {
+	float a = 0;
+	float b = 0;
+	float c = 0;
+	float D = 0;
+	float x1 = 0;
+	float x2 = 0;
+	printf("Введите коэффициенты квадратного уравнения ax2 + bx + c = 0 через пробел\n");
+	printf("а = ");
+	scanf("%f", &a);
+	printf("b = ");
+	scanf("%f", &b);
+	printf("с = ");
+	scanf("%f", &c);
+
+	D = (b * b) - (4 * a * c);
+	printf("Дискриминант уравнения = %.2f\n", D);
+	if (D > 0)
+	{
+		D = sqrt(D);
+		x1 = (-b + D) / (2 * a);
+		x2 = (-b - D) / (2 * a);
+		printf("Уравнение имеет два корня:\n");
+		printf("x1 = %.2f \n", x1);
+		printf("x2 = %.2f \n", x2);
+	}
+	else if(D < 0)
+		printf("Уравнение не имеет корней\n");
+	else {
+		x1 = (-b) / (2 * a);
+		printf("Уравнение имеет один корень:\n");
+		printf("x1 = %.2f \n", x1);
+	}
+
+
+}
+
 void menu() {
 	printf("\n1 - Рассчёт индекса массы\n");
 	printf("2 - Поиск максимального из четырёх чисел\n");
 	printf("3 - Обмен значениями\n");
+	printf("4 - Поиск корней квадратного уравнения\n");
 	printf("0 - exit\n");
 }
