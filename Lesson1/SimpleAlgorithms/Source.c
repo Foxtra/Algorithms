@@ -22,7 +22,7 @@ b. *без использования третьей переменной.
 а) с использованием стандартной функции rand()
 б) без использования стандартной функции rand()
 14. *Автоморфные числа. Натуральное число называется автоморфным, если оно равно последним цифрам своего квадрата. 
-Например, 252 = 625. Напишите программу, которая вводит натуральное число N и выводит на экран все автоморфные числа, 
+Например, 25^2 = 625. Напишите программу, которая вводит натуральное число N и выводит на экран все автоморфные числа, 
 не превосходящие N.
 
 Сергей Ткачев
@@ -32,11 +32,23 @@ b. *без использования третьей переменной.
 #include <stdio.h>
 #include <locale.h>
 #include <math.h>
+#include <stdlib.h>
+#define arrLength 3
 
 void bmi();
-void maxOfFourNombers();
+void maxOfFourNumbers();
 void changeValues();
 void findSquareEquationRoots();
+void getTimeOfTheYear();
+void useRightFormOfWord();
+void checkColorOfCell();
+void powerFromAtoB();
+void divisionNonK();
+void isOddNumberHere();
+void average();
+void maxOfThree();
+void randNumber();
+void amorphNumber();
 void menu();
 
 int main() {
@@ -50,13 +62,43 @@ int main() {
 				bmi();
 				break;
 			case 2:
-				maxOfFourNombers();
+				maxOfFourNumbers();
 				break;
 			case 3:
 				changeValues();
 				break;
 			case 4:
 				findSquareEquationRoots();
+				break;
+			case 5:
+				getTimeOfTheYear();
+				break;
+			case 6:
+				useRightFormOfWord();
+				break;
+			case 7:
+				checkColorOfCell();
+				break;
+			case 8:
+				powerFromAtoB();
+				break;
+			case 9:
+				divisionNonK();
+				break;
+			case 10:
+				isOddNumberHere();
+				break;
+			case 11:
+				average();
+				break;
+			case 12:
+				maxOfThree();
+				break;
+			case 13:
+				randNumber();
+				break;
+			case 14:
+				amorphNumber();
 				break;
 			default:
 				if(sel != 0)
@@ -80,7 +122,7 @@ void bmi() {
 	printf("Индекс массы тела = %.2f \n",index);
 }
 
-void maxOfFourNombers() {
+void maxOfFourNumbers() {
 	int a = 0;
 	int b = 0;
 	int c = 0;
@@ -154,8 +196,216 @@ void findSquareEquationRoots() {
 		printf("Уравнение имеет один корень:\n");
 		printf("x1 = %.2f \n", x1);
 	}
+}
 
+void getTimeOfTheYear() {
+	int month = 0;
+	printf("Введите месяц числом, чтобы определить время года\n");
+	printf("месяц = ");
+	scanf("%d", &month);
 
+	if (month > 2 && month < 6)
+		printf("На дворе весна\n");
+	else if (month > 5 && month < 9)
+		printf("На дворе лето\n");
+	else if (month > 8 && month < 12)
+		printf("На дворе осень\n");
+	else if ((month > 0 && month < 3) || month == 12)
+		printf("На дворе зима\n");
+	else {
+		printf("Месяц введён некорректно\n");
+	}
+}
+
+void useRightFormOfWord() {
+	int age = 0;
+	printf("Введите возраст человека от 0 до 150, чтобы узнать правильно склонение\n");
+	printf("возраст = ");
+	scanf("%d", &age);
+
+	// Год, когда заканчивается на один, кроме 11.
+	if (age % 10 == 1 && age != 11) printf("год\n ");
+	else
+		// Года
+		if ((age >= 2 && age <= 4) || (age >= 22 && age <= 24) || (age >= 32 && age <= 34) || (age > 41 && age < 45)) printf("года\n ");
+		else
+			// Лет
+			if ((age == 11) || (age >= 5 && age <= 20) || (age >= 25 && age <= 30) || (age >= 35 && age < 41) || (age > 44 && age < 51)) printf("лет\n ");
+}
+
+void checkColorOfCell() {
+	int firstEven = 0;
+	int secondEven = 0;
+	int y2 = 0;
+	int y1 = 0;
+	int x1 = 0;
+	int x2 = 0;
+	printf("Введите координаты первой клетки x1 y1: ");
+	scanf("%d %d", &x1, &y1);
+	printf("Введите координаты второй клетки x2 y2: ");
+	scanf("%d %d", &x2, &y2);
+	
+	x1 = x1 % 2;
+	x2 = x2 % 2;
+	y1 = y1 % 2;
+	y2 = y2 % 2;
+
+	if (x1 == y1)
+		firstEven = 1;
+	else
+		firstEven = 0;
+	if (x2 == y2)
+		secondEven = 1;
+	else
+		secondEven = 0;
+	
+	if (firstEven == secondEven)
+		printf("Клетки одного цвета\n");
+	else
+		printf("Клетки разных цветов\n");
+}
+
+void powerFromAtoB() {
+	int a = 0;
+	int b = 0;
+	int pOfTwo = 0;
+	int pOfThree = 0;
+	printf("Введите числа a b через пробел: ");
+	scanf("%d %d", &a, &b);
+
+	for (int i = a; i <= b; i++)
+	{
+		pOfTwo = i * i;
+		pOfThree = pOfTwo * i;
+		printf("квадрат числа %d = %d, ", i, pOfTwo);
+		printf("куб = %d\n", pOfThree);
+	}
+}
+
+void divisionNonK() {
+	int N = 0;
+	int K = 0;
+	int remainder = 0;
+	int result = 0;
+	int count = 0;
+	printf("Введите числа N и K через пробел: ");
+	scanf("%d %d", &N, &K);
+
+	while (N >= K)
+	{
+		N -= K;
+		count++;
+	}
+
+	printf("N / K = %d и %d в остатке \n", count, N);
+}
+
+void isOddNumberHere() {
+	int N = 0;
+	int checkOdd = 0;
+	int remainder = 0;
+	printf("Введите число N (> 0): ");
+	scanf("%d", &N);
+
+	while (N > 0)
+	{
+		remainder = N % 10;
+		N /= 10;
+		if (remainder % 2) {
+			checkOdd = 1;
+			break;
+		}
+	}
+	if(checkOdd)
+		printf("True\n");
+	else
+		printf("False\n");
+}
+
+void average() {
+	float average = 0;
+	int checkOdd = 0;
+	int remainder = 0;
+	int currentNum = 0;
+	int count = 0;
+
+	printf("Чтобы посчитать среднее арифметическое всех положительных четных чисел, оканчивающихся на 8, - вводите числа по одному, для завершения введите 0:\n");
+	do
+	{
+		scanf("%d", &currentNum);
+		if (currentNum > 0) {
+			checkOdd = currentNum % 2;
+			if (!(checkOdd)) {
+				remainder = currentNum % 10;
+				if (remainder == 8) {
+					average += currentNum;
+					count++;
+				}
+			}
+		}
+		
+	} while (currentNum);
+
+	average /= count;
+	printf("Среднее арифметическое: %.2f\n", average);
+}
+
+void maxOfThree() {
+	
+	int myArr[arrLength] = { 0 };
+	int max = 0;
+
+	printf("Введите три целых числа через пробел: ");
+	for (int i = 0; i < arrLength; i++)
+	{
+		scanf("%d", myArr + i);
+	}
+	for (int i = 0; i < arrLength; i++)
+	{
+		if (myArr[i] > max)
+			max = myArr[i];
+	}
+	printf("Максимальное значение: %d\n", max);
+}
+
+void randNumber() {   
+	srand(time(NULL));
+	int x, a, b, m;
+	m = 100;
+	b = 3;
+	a = 2;
+	x = rand() % 100;
+	x = (a * x + b) % m;
+	printf("Случайное число %d \n", x);
+}
+
+void amorphNumber() {
+	int N;
+	int checkAmorph = 0;
+	int temp = 0;
+	int remainder = 0;
+	int countOfTens = 0;
+	int powTwo = 0;
+	int multiplier = 1;
+	printf("Введите целое положительное число: ");
+	scanf("%d", &N);
+	for (int i = 1; i <= N; i++)
+	{
+		temp = i;
+		while (temp > 0) {
+			temp /= 10;
+			countOfTens++;
+		}
+		powTwo = i * i;
+		for (int j = 0; j < countOfTens; j++)
+			multiplier *= 10;
+		remainder = powTwo % (multiplier);
+		if(remainder == i)
+			printf("Квадрат числа %d равняется %d \n", i, powTwo);
+		countOfTens = 0;
+		multiplier = 1;
+	}
+	
 }
 
 void menu() {
@@ -163,5 +413,15 @@ void menu() {
 	printf("2 - Поиск максимального из четырёх чисел\n");
 	printf("3 - Обмен значениями\n");
 	printf("4 - Поиск корней квадратного уравнения\n");
+	printf("5 - Определение времени года по месяцу\n");
+	printf("6 - Склонение слова \"лет\" \n");
+	printf("7 - Определение цвета клетки на шахматной доске \n");
+	printf("8 - Вывод квадратов и кубов чисел от a до b \n");
+	printf("9 - Поиск частного от деления N на K, а также остаток, используя только сложение и вычитание. \n");
+	printf("10 - Определить, имеются ли в записи числа N нечетные цифры. \n");
+	printf("11 - Среднее арифметическое чисел, оканчивающихся на 8. \n");
+	printf("12 - Поиск максимального из трех чисел. \n");
+	printf("13 - Генерация случайного числа от 0 до 100. \n");
+	printf("14 - Вывод на экран всех автоморфных чисел, не превосходящих введённого. \n");
 	printf("0 - exit\n");
 }
