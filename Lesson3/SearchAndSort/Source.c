@@ -118,18 +118,16 @@ int binarySearch(int* arrPointer, int goal) {
 	int left = 0;
 	int right = arrSize;
 
-	middle = right / 2;
-	while (right > left) {
+	while (right >= left) {
+		middle = ((right - left) / 2) + left;
 		if (goal == arrPointer[middle])
 			return middle;
 		else {
 			if (goal < arrPointer[middle]) {
-				right = middle--;
-				middle = right / 2;
+				right = --middle;
 			}
 			else {
-				left = middle++;
-				middle = ((right - left) / 2) + left;
+				left = ++middle;
 			}
 		}
 	}
