@@ -5,7 +5,6 @@
 2. *Реализовать шейкерную сортировку.
 3. Реализовать бинарный алгоритм поиска в виде функции, которой передается отсортированный массив.
 Функция возвращает индекс найденного элемента или - 1, если элемент не найден.
-4. *Подсчитать количество операций для каждой из сортировок и сравнить его с асимптотической сложностью алгоритма.
 
 Сергей Ткачёв
 
@@ -22,6 +21,8 @@ void arrPrint(int* myarr);
 void swap(int *a, int *b);
 void binarySearchInterface();
 int binarySearch(int* arrPointer, int goal);
+int* generateArray();
+void shakerSort();
 void menu();
 
 //глобальная переменная для демонстрации поиска в отсортированном массиве
@@ -39,6 +40,9 @@ int main() {
 			break;
 		case 2:
 			binarySearchInterface();
+			break;
+		case 3:
+			shakerSort();
 			break;
 		default:
 			if (sel != 0)
@@ -95,7 +99,7 @@ void bubbleSort() {
 //интерфейс для вызова функции бинарного поиска
 void binarySearchInterface() {
 	if (mya == NULL) {
-		puts("Запускайте эту подпрограмму только после сортировки массива(1)");
+		puts("Запускайте эту подпрограмму только после сравнения сортировок(1)");
 		return;
 	}
 	int search = 0;
@@ -167,9 +171,70 @@ void swap(int *a, int *b) {
 	*b = t;
 }
 
+//функция генерации массива, размер определяется константой
+int* generateArray() {
+	//объявление static - иначе данные затираются при передаче массива в другую функцию
+	int static myArrayy[arrSize];
+	srand(time(NULL));
+	for (int i = 0; i < arrSize; i++)
+	{
+		myArrayy[i] = rand() % 100;
+		//printf("%d\n", *(myArr + i));
+	}
+	return myArrayy;
+}
+
+//функция шейкерной сортировки массива
+void shakerSort() {
+	int* myAr;
+	myAr = (int*)malloc(arrSize * sizeof(int));
+	int count = 0;
+	myAr = generateArray();
+	int max = myAr[0];
+	int min = myAr[0];
+	int top = 0;
+	int bottom = 0;
+	printf("Сгенерирован следующий массив:");
+	arrPrint(myAr);
+	printf("Результат шейкерной сортировки:");
+
+	for (int i = 0; i < arrSize; i++) {
+		count += 2;
+		if (i % 2 == 0) {
+			count++;
+			for (int j = 0 + bottom; j < arrSize - top - 1; j++) {
+				count++;
+				if (myAr[j] > myAr[j + 1])
+				{
+					count++;
+					swap(&myAr[j], &myAr[j + 1]);
+				}
+			}
+			count++;
+			top++;
+		}
+		else {
+			count++;
+			for (int j = arrSize - top - 1; j > 0 + bottom; j--) {
+				count++;
+				if (myAr[j] < myAr[j - 1])
+				{
+					count++;
+					swap(&myAr[j], &myAr[j - 1]);
+				}
+			}
+			count++;
+			bottom++;
+		}
+	}
+	arrPrint(myAr);
+	printf("Выполнена за %d операций \n", count);
+}
+
 void menu() {
-	printf("\nВы находисесь в основном меню.\n");
+	printf("\nВы находитесь в основном меню.\n");
 	printf("1 - Сравнение сортировок\n");
 	printf("2 - Бинарный поиск\n");
+	printf("3 - Шейкерная сортировка\n");
 	printf("0 - exit\n");
 }
