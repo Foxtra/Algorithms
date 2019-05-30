@@ -7,6 +7,10 @@
   > 0 1 0
 2. Решить задачу о нахождении длины максимальной последовательности с помощью матрицы.
 
+3. *Требуется обойти конем шахматную доску размером NxM, пройдя через все поля доски по одному разу. 
+Здесь алгоритм решения такой же, как в задаче о 8 ферзях. Разница только в проверке положения коня. 
+(не выполнено) 
+
 Сергей Ткачёв
 */
 
@@ -116,7 +120,8 @@ void LCS() {
 	int i, j, c;
 	int delta = 1;
 	int matrix[firstWord][secondWord] = { 0 };
-	char result = ' ';
+	int maxlen = 0;
+	char result[firstWord] = { 0 };
 
 	for (j = 0; j < firstWord; j++)
 		if (str2[0] == str1[j]) {
@@ -132,7 +137,7 @@ void LCS() {
 			if (matrix[i][j] != 0)
 				continue;
 			if (str2[i] == str1[j]) {
-				//append(result, str2[i]);
+				append(result, str2[i]);
 				if (j == 0)
 					matrix[i][j] = matrix[i - 1][j] + 1;
 				else
@@ -156,7 +161,7 @@ void LCS() {
 		}
 	printf("Для слов 'geekbrains' и 'ogeekminds' вычислена общая подпоследовательность по матрице: \n\n");
 	Print2(firstWord, secondWord, matrix);
-	//printf("Ответ %s\n", result);
+	printf("Ответ %s\n", result);
 }
 
 void menu() {
